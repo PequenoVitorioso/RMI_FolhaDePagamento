@@ -1,13 +1,19 @@
 package model;
 
-public class Cargo {
+public class CargoModel {
     private int id_cargo;
     private String nome;
     private String nivel;
     private float salario;
 
-    public Cargo() {
+    public CargoModel(int idCargo, String nomeCargo, String nivel, float salarioBase) {
+        this.id_cargo = idCargo;
+        this.nome = nomeCargo;
+        this.nivel = nivel;
+        this.salario = salarioBase;
     }
+
+    public CargoModel() {}
 
     public int getId_cargo() {
         return id_cargo;
