@@ -1,5 +1,6 @@
 package controller;
 
+import model.CargoModel;
 import model.FuncionarioModel;
 import util.Conexao;
 
@@ -9,23 +10,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class FuncionarioController extends UnicastRemoteObject implements FuncionarioInterface {
-    public FuncionarioController()throws RemoteException{}
+public class CargoController extends UnicastRemoteObject implements CargoInterface {
+    public CargoController()throws RemoteException{}
 
     @Override
-    public boolean inserir(FuncionarioModel f) throws RemoteException {
+    public boolean inserir(CargoModel cargo) throws RemoteException {
         boolean retorno = false;
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL INSERT
-        String sql = "insert into funcionario (nome, id_departamento, id_cargo) values (?,?,?)";
+        String sql = "insert into cargo (nome_cargo, descrição, salario_base) values (?,?,?)";
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             //PASSAR PARAMETROS
-            sentenca.setString(1, f.getNome());
-            sentenca.setInt(2, f.getId_departamento());
-            sentenca.setInt(3, f.getId_cargo());
+            sentenca.setString(1, cargo.getNome());
+            sentenca.setString(2, cargo.getDescricao());
+            sentenca.setFloat(3, cargo.getSalario());
             //EXECUTAR SENTENCA
             if (!sentenca.execute()) {
                 retorno = true;
@@ -39,20 +40,20 @@ public class FuncionarioController extends UnicastRemoteObject implements Funcio
     }
 
     @Override
-    public boolean editar(FuncionarioModel f) throws RemoteException {
+    public boolean editar(CargoModel cargo) throws RemoteException {
         boolean retorno = false;
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL UPDATE
-        String sql = "update funcionario set nome = ?, id_departamento = ?, id_cargo = ? where id_funcionario = ?";
+        String sql = "update cargo set nome_cargo = ?, descrição = ?, salario_base = ? where id_cargo = ?";
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             //PASSAR PARAMETROS
-            sentenca.setString(1, f.getNome());
-            sentenca.setInt(2, f.getId_departamento());
-            sentenca.setInt(3, f.getId_cargo());
-            sentenca.setInt(4, f.getId_funcionario());
+            sentenca.setString(1, cargo.getNome());
+            sentenca.setString(2, cargo.getDescricao());
+            sentenca.setFloat(3, cargo.setSalario());
+            sentenca.setInt(4, cargo.getId_cargo());
             //EXECUTAR SENTENCA
             if (!sentenca.execute()) {
                 retorno = true;
@@ -66,17 +67,17 @@ public class FuncionarioController extends UnicastRemoteObject implements Funcio
     }
 
     @Override
-    public boolean excluir(FuncionarioModel f) throws RemoteException {
+    public boolean excluir(CargoModel cargo) throws RemoteException {
         boolean retorno = false;
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL DELETE
-        String sql = "delete from funcionario where id_funcionario = ?";
+        String sql = "delete from cargo where id_cargo = ?";
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             //PASSAR PARAMETROS
-            sentenca.setInt(1, f.getId_funcionario());
+            sentenca.setInt(1, cargo.getId_cargo());
             //EXECUTAR SENTENCA
             if (!sentenca.execute()) {
                 retorno = true;
@@ -90,25 +91,25 @@ public class FuncionarioController extends UnicastRemoteObject implements Funcio
     }
 
     @Override
-    public FuncionarioModel pesquisar(FuncionarioModel f) throws RemoteException {
-        FuncionarioModel retorno = null;
+    public CargoModel pesquisar(CargoModel cargo) throws RemoteException {
+        CargoModel retorno = null;
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL DELETE
-        String sql = "select * from funcionario where id_funcionario = ?";
+        String sql = "select * from cargo where id_cargo = ?";
         try{
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             //PASSAR PARAMETROS
-            sentenca.setInt(1,f.getId_funcionario());
+            sentenca.setInt(1,cargo.getId_cargo());
             //EXECUTAR SENTENCA
             ResultSet rs = sentenca.executeQuery();
             if(rs.next()){
-                retorno = new FuncionarioModel();
-                retorno.setId_funcionario(rs.getInt(1));
+                retorno = new CargoModel();
+                retorno.setId_cargo(rs.getInt(1));
                 retorno.setNome(rs.getString(2));
-                retorno.setId_cargo(rs.getInt(3));
-                retorno.setId_departamento(rs.getInt(4));
+                retorno.setDescricao(rs.getString(3));
+                retorno.setSalario(rs.getFloat(4));
             }
         }catch(SQLException e){
             System.out.println("Erro ao excluir: "+ e.getMessage());

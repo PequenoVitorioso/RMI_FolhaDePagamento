@@ -1,7 +1,6 @@
 package controller;
 
 import model.FuncionarioModel;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

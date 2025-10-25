@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3f656f1-1f89-41ad-a849-7a3201b5dcc1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Cliente/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Cliente/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cliente/src/model/CargoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Cliente/src/model/CargoModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cliente/src/model/PagamentoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Cliente/src/model/PagamentoModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -71,7 +72,7 @@
       <workItem from="1761334662153" duration="391000" />
       <workItem from="1761335511924" duration="221000" />
       <workItem from="1761339640548" duration="203000" />
-      <workItem from="1761398860803" duration="1035000" />
+      <workItem from="1761398860803" duration="4824000" />
     </task>
     <servers />
   </component>

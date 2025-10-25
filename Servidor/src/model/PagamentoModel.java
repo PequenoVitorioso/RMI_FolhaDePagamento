@@ -3,13 +3,13 @@ package model;
 public class PagamentoModel {
     private int id_pagamento;
     private int id_cliente;
-    private float valor_bruto;
+    private float valor_liquido;
     private float desconto;
 
-    public PagamentoModel(int id_pagamento, int id_cliente, float valor_bruto) {
+    public PagamentoModel(int id_pagamento, int id_cliente, float valor_liquido) {
         this.id_pagamento = id_pagamento;
         this.id_cliente = id_cliente;
-        this.valor_bruto = valor_bruto;
+        this.valor_liquido = valor_liquido;
     }
 
     public PagamentoModel() {}
@@ -30,12 +30,12 @@ public class PagamentoModel {
         this.id_cliente = id_cliente;
     }
 
-    public float getValor_bruto() {
-        return valor_bruto;
+    public float getValor_liquido() {
+        return valor_liquido;
     }
 
-    public void setValor_bruto(float valor_bruto) {
-        this.valor_bruto = valor_bruto;
+    public void setValor_liquido(float valor_liquido) {
+        this.valor_liquido = valor_liquido;
     }
 
     public float getDesconto() {

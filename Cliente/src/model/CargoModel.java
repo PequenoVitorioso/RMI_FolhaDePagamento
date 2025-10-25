@@ -3,13 +3,13 @@ package model;
 public class CargoModel {
     private int id_cargo;
     private String nome;
-    private String nivel;
+    private String descricao;
     private float salario;
 
-    public CargoModel(int idCargo, String nomeCargo, String nivel, float salarioBase) {
+    public CargoModel(int idCargo, String nomeCargo, String descricao, float salarioBase) {
         this.id_cargo = idCargo;
         this.nome = nomeCargo;
-        this.nivel = nivel;
+        this.descricao = descricao;
         this.salario = salarioBase;
     }
 
@@ -31,12 +31,12 @@ public class CargoModel {
         this.nome = nome;
     }
 
-    public String getNivel() {
-        return nivel;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNivel(String nivel) {
-        this.nivel = nivel;
+    public void setDescricao(String nivel) {
+        this.descricao = nivel;
     }
 
     public float getSalario() {
