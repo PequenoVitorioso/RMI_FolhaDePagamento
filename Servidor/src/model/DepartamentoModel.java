@@ -1,24 +1,24 @@
 package model;
 
 public class DepartamentoModel {
-    private int id_Departamento;
+    private int id_departamento;
     private String nome;
     private String localizacao;
 
-    public DepartamentoModel(int id_Departamento, String nome, String localizacao) {
-        this.id_Departamento = id_Departamento;
+    public DepartamentoModel(int id_departamento, String nome, String localizacao) {
+        this.id_departamento = id_departamento;
         this.nome = nome;
         this.localizacao = localizacao;
     }
 
     public DepartamentoModel() {}
 
-    public int getId_Departamento() {
-        return id_Departamento;
+    public int getId_departamento() {
+        return id_departamento;
     }
 
-    public void setId_Departamento(int id_Departamento) {
-        this.id_Departamento = id_Departamento;
+    public void setId_departamento(int id_departamento) {
+        this.id_departamento = id_departamento;
     }
 
     public String getNome() {
