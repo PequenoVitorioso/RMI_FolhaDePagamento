@@ -15,30 +15,34 @@ import controller.*;
  * @author Yasmim Mendes
  */
 public class ServidorView {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         try{
-             Registry registry;
-            try {
-                registry = LocateRegistry.getRegistry(1200);
-                registry.list();
-                System.out.println("Registry já está rodando.");
-            } catch (RemoteException e) {
-                registry = LocateRegistry.createRegistry(1200);
-                System.out.println("Registry criado na porta 1200");
-            }
-            CargoController c = new CargoController();
+            System.setProperty("java.rmi.server.hostname", "localhost"); // ADICIONAR IP DA MAQUINA
+            Registry conexao = LocateRegistry.createRegistry(1100);
+            System.out.println("Servidor Iniciado! ");
+            
+            //INSTANCIA DOS OBJETOS REMOTOS
+            
+            // (CARGO CONTROLLER)
+            CargoController c= new CargoController();
+            // (FUNCIONARIO CONTROLLER) 
+            FuncionarioController f= new FuncionarioController();
+            // (DEPARTAMENTO CONTROLLER)
             DepartamentoController d = new DepartamentoController();
-            FuncionarioController f = new FuncionarioController();
+            // (PAGAMENTO CONTROLLER) 
             PagamentoController p = new PagamentoController();
-            System.out.println("Servidor pronto!");
-            registry.bind("cargo",c);
-            registry.bind("departamento", d);
-            registry.bind("funcionario", f);
-            registry.bind("pagamento", p);
+
+            System.out.println("Servidor pronto!... ");
+            // REGISTRA OS OBJETOS REMOTOS NO REGISTRY 
+            conexao.bind("cargo", c);
+            conexao.bind("funcionario", f);
+            conexao.bind("departamento", d);
+            conexao.bind("pagamento", p);
+            
         }catch(AlreadyBoundException e){
-            System.out.println("Erro na conexão: "+ e.getMessage());
-        }catch(RemoteException e){
-            System.out.println("Erro na chamada do serviço: "+ e.getMessage());
+            System.out.println("Erro na conexão:  "+e.getMessage());
+        }catch(RemoteException e ){
+            System.out.println("Erro na chamada so seviço:  "+e.getMessage());
         }
     }
 }

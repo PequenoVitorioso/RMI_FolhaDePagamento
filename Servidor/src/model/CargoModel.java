@@ -1,6 +1,9 @@
 package model;
 
-public class CargoModel {
+import java.io.Serializable;
+
+public class CargoModel implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id_cargo;
     private String nome;
     private String descricao;

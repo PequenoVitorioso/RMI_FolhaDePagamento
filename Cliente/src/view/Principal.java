@@ -112,7 +112,6 @@ public class Principal extends javax.swing.JFrame {
     private void jmiCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCargoActionPerformed
         CargoView cargo = new CargoView();
         cargo.setVisible(true);
-        areaTrabalho.add(cargo);
     }//GEN-LAST:event_jmiCargoActionPerformed
 
     private void jmiDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDepartamentoActionPerformed
