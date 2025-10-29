@@ -52,7 +52,7 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
             //PASSAR PARAMETROS
             sentenca.setString(1, cargo.getNome());
             sentenca.setString(2, cargo.getDescricao());
-            sentenca.setFloat(3, cargo.setSalario());
+            sentenca.setFloat(3, cargo.getSalario());
             sentenca.setInt(4, cargo.getId_cargo());
             //EXECUTAR SENTENCA
             if (!sentenca.execute()) {
@@ -143,6 +143,40 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
         }
         //DESCONECTAR
         c.desconectar();
+        return retorno;
+    }
+    
+    @Override
+    public CargoModel selecionar(CargoModel cargo) throws RemoteException {
+        CargoModel retorno = null;
+
+        //CONECTAR COM O BANCO
+        Conexao c = new Conexao();
+        c.conectar();
+
+        String sql = "select * from cargo where id_cargo = ?";
+
+        try {
+            PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            sentenca.setInt(1, cargo.getId_cargo());
+
+            ResultSet rs = sentenca.executeQuery();
+
+            if (rs.next()) {
+                retorno = new CargoModel();
+                retorno.setId_cargo(rs.getInt("id_cargo"));
+                retorno.setNome(rs.getString("nome_cargo"));
+                retorno.setDescricao(rs.getString("descrição"));
+                retorno.setSalario(rs.getFloat("salario_base"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao selecionar cargo: " + e.getMessage());
+        }
+
+        //DESCONECTAR
+        c.desconectar();
+
         return retorno;
     }
 }

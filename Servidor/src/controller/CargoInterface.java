@@ -11,4 +11,5 @@ public interface CargoInterface extends Remote {
     public boolean excluir(CargoModel cargo) throws RemoteException;
     public CargoModel pesquisar(CargoModel cargo) throws RemoteException;
     public ArrayList<CargoModel> listar() throws RemoteException;
+    public CargoModel selecionar(CargoModel cargo) throws RemoteException;
 }
