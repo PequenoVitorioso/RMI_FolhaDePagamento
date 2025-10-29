@@ -20,7 +20,7 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL INSERT
-        String sql = "insert into cargo (nome_cargo, descrição, salario_base) values (?,?,?)";
+        String sql = "insert into cargo (nome_cargo, descricao, salario_base) values (?,?,?)";
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             //PASSAR PARAMETROS
@@ -46,7 +46,7 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL UPDATE
-        String sql = "update cargo set nome_cargo = ?, descrição = ?, salario_base = ? where id_cargo = ?";
+        String sql = "update cargo set nome_cargo = ?, descricao = ?, salario_base = ? where id_cargo = ?";
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             //PASSAR PARAMETROS
@@ -166,7 +166,7 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
                 retorno = new CargoModel();
                 retorno.setId_cargo(rs.getInt("id_cargo"));
                 retorno.setNome(rs.getString("nome_cargo"));
-                retorno.setDescricao(rs.getString("descrição"));
+                retorno.setDescricao(rs.getString("descricao"));
                 retorno.setSalario(rs.getFloat("salario_base"));
             }
 
