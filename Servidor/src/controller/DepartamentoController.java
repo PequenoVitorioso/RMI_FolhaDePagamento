@@ -1,6 +1,5 @@
 package controller;
 
-import model.CargoModel;
 import model.DepartamentoModel;
 import util.Conexao;
 
@@ -9,6 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DepartamentoController extends UnicastRemoteObject implements DepartamentoInterface {
     public DepartamentoController() throws RemoteException {}
@@ -94,7 +94,7 @@ public class DepartamentoController extends UnicastRemoteObject implements Depar
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
-        //CRIAR SQL DELETE
+        //CRIAR SQL SELECT
         String sql = "select * from departamento where id_departamento = ?";
         try{
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
@@ -114,4 +114,32 @@ public class DepartamentoController extends UnicastRemoteObject implements Depar
         c.desconectar();
         return retorno;
     }
+
+    @Override
+    public ArrayList<DepartamentoModel> listar() throws RemoteException {
+        ArrayList<DepartamentoModel> retorno = new ArrayList<>();
+        //CONECTAR COM O BANCO
+        Conexao c = new Conexao();
+        c.conectar();
+        //CRIAR SQL SELECT
+        String sql = "select * from departamento";
+        try{
+            PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            //EXECUTAR SENTENCA
+            ResultSet result = sentenca.executeQuery();
+            while(result.next()){
+                DepartamentoModel departamento = new DepartamentoModel();
+                departamento.setId_departamento(result.getInt(1));
+                departamento.setNome(result.getString(2));
+                departamento.setLocalizacao(result.getString(3));
+                retorno.add(departamento);
+            }
+        }catch(SQLException  e){
+            System.out.println("Erro na seleção: "+ e.getMessage());
+        }
+        //DESCONECTAR
+        c.desconectar();
+        return retorno;
+    }
+
 }

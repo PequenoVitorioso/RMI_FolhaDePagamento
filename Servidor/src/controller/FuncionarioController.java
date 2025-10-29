@@ -8,6 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class FuncionarioController extends UnicastRemoteObject implements FuncionarioInterface {
     public FuncionarioController()throws RemoteException{}
@@ -95,7 +96,7 @@ public class FuncionarioController extends UnicastRemoteObject implements Funcio
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
-        //CRIAR SQL DELETE
+        //CRIAR SQL SELECT
         String sql = "select * from funcionario where id_funcionario = ?";
         try{
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
@@ -113,6 +114,34 @@ public class FuncionarioController extends UnicastRemoteObject implements Funcio
         }catch(SQLException e){
             System.out.println("Erro ao excluir: "+ e.getMessage());
         }
+        c.desconectar();
+        return retorno;
+    }
+
+    @Override
+    public ArrayList<FuncionarioModel> listar() throws RemoteException {
+        ArrayList<FuncionarioModel> retorno = new ArrayList<>();
+        //CONECTAR COM O BANCO
+        Conexao c = new Conexao();
+        c.conectar();
+        //CRIAR SQL SELECT
+        String sql = "select * from funcionario";
+        try{
+            PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            //EXECUTAR SENTENCA
+            ResultSet result = sentenca.executeQuery();
+            while(result.next()){
+                FuncionarioModel funcionario = new FuncionarioModel();
+                funcionario.setId_funcionario(result.getInt(1));
+                funcionario.setNome(result.getString(2));
+                funcionario.setId_departamento(result.getInt(3));
+                funcionario.setId_cargo(result.getInt(4));
+                retorno.add(funcionario);
+            }
+        }catch(SQLException  e){
+            System.out.println("Erro na seleção: "+ e.getMessage());
+        }
+        //DESCONECTAR
         c.desconectar();
         return retorno;
     }

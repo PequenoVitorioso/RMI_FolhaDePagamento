@@ -4,7 +4,6 @@ public class PagamentoModel {
     private int id_pagamento;
     private int id_cliente;
     private float valor_liquido;
-    private float desconto;
 
     public PagamentoModel(int id_pagamento, int id_cliente, float valor_liquido) {
         this.id_pagamento = id_pagamento;
@@ -38,11 +37,4 @@ public class PagamentoModel {
         this.valor_liquido = valor_liquido;
     }
 
-    public float getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(float desconto) {
-        this.desconto = desconto;
-    }
 }

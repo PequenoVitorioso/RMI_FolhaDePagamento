@@ -1,7 +1,6 @@
 package controller;
 
 import model.CargoModel;
-import model.FuncionarioModel;
 import util.Conexao;
 
 import java.rmi.RemoteException;
@@ -9,6 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CargoController extends UnicastRemoteObject implements CargoInterface {
     public CargoController()throws RemoteException{}
@@ -96,7 +96,7 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
-        //CRIAR SQL DELETE
+        //CRIAR SQL SELECT
         String sql = "select * from cargo where id_cargo = ?";
         try{
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
@@ -114,6 +114,34 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
         }catch(SQLException e){
             System.out.println("Erro ao excluir: "+ e.getMessage());
         }
+        c.desconectar();
+        return retorno;
+    }
+
+    @Override
+    public ArrayList<CargoModel> listar() throws RemoteException {
+        ArrayList<CargoModel> retorno = new ArrayList<>();
+        //CONECTAR COM O BANCO
+        Conexao c = new Conexao();
+        c.conectar();
+        //CRIAR SQL SELECT
+        String sql = "select * from cargo";
+        try{
+            PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            //EXECUTAR SENTENCA
+            ResultSet result = sentenca.executeQuery();
+            while(result.next()){
+                CargoModel cargo = new CargoModel();
+                cargo.setId_cargo(result.getInt(1));
+                cargo.setNome(result.getString(2));
+                cargo.setDescricao(result.getString(3));
+                cargo.setSalario(result.getFloat(4));
+                retorno.add(cargo);
+            }
+        }catch(SQLException  e){
+            System.out.println("Erro na seleção: "+ e.getMessage());
+        }
+        //DESCONECTAR
         c.desconectar();
         return retorno;
     }
