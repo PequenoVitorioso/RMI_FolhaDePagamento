@@ -9,8 +9,8 @@ public class Conexao {
     public Connection conector;
     public void conectar(){
         try{
-            Class.forName("******");
-            String url = "*******";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/folha_pagamento";
             String usuario = "root";
             String senha = "root";
             conector = DriverManager.getConnection(url, usuario, senha);

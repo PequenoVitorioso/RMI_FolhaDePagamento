@@ -141,5 +141,37 @@ public class DepartamentoController extends UnicastRemoteObject implements Depar
         c.desconectar();
         return retorno;
     }
+    
+    @Override
+    public DepartamentoModel selecionar(DepartamentoModel departamento) throws RemoteException {
+        DepartamentoModel retorno = null;
 
+        //CONECTAR COM O BANCO
+        Conexao c = new Conexao();
+        c.conectar();
+
+        String sql = "select * from departamento where id_departamento = ?";
+
+        try {
+            PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            sentenca.setInt(1, departamento.getId_departamento());
+
+            ResultSet rs = sentenca.executeQuery();
+
+            if (rs.next()) {
+                retorno = new DepartamentoModel();
+                retorno.setId_departamento(rs.getInt("id_departamento"));
+                retorno.setNome(rs.getString("nome_departamento"));
+                retorno.setLocalizacao(rs.getString("localizacao"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao selecionar cargo: " + e.getMessage());
+        }
+
+        //DESCONECTAR
+        c.desconectar();
+
+        return retorno;
+    }
 }

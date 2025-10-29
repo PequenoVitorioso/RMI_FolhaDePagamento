@@ -11,4 +11,5 @@ public interface DepartamentoInterface extends Remote {
     public boolean excluir(DepartamentoModel departamento) throws RemoteException;
     public DepartamentoModel pesquisar(DepartamentoModel departamento) throws RemoteException;
     public ArrayList<DepartamentoModel> listar() throws RemoteException;
+    public DepartamentoModel selecionar(DepartamentoModel cargo) throws RemoteException;
 }
