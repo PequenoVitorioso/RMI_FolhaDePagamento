@@ -11,17 +11,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DepartamentoController extends UnicastRemoteObject implements DepartamentoInterface {
-    public DepartamentoController() throws RemoteException {}
+    public DepartamentoController() throws RemoteException {
+    }
 
     @Override
     public boolean inserir(DepartamentoModel departamento) throws RemoteException {
-        boolean retorno = false;
+        boolean retorno = false; 
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL INSERT
         String sql = "insert into departamento (nome_departamento, localizacao) values (?,?)";
         try {
+
+        //CONECTAR AO BANCO//
+        Conexao c = new Conexao();
+        c.conectar();
+        //CRIAR SQL INSERT//
+        String sql = "insert into departamento (nome, localizacao) values (??)";
+        try{
+
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             //PASSAR PARAMETROS
             sentenca.setString(1, departamento.getNome());
