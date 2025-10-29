@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88ec636a-c2f5-4cc8-9e07-a36ce9d3e946" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Servidor/src/controller/PagamentoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Servidor/src/view/Servidor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/PagamentoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/PagamentoModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/CargoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/CargoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/CargoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/CargoInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/DepartamentoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/DepartamentoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/DepartamentoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/DepartamentoInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/FuncionarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/FuncionarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/FuncionarioInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/FuncionarioInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/PagamentoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/PagamentoInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/model/PagamentoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/model/PagamentoModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +48,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="controller" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,7 +75,7 @@
       <workItem from="1761337096611" duration="2723000" />
       <workItem from="1761570157935" duration="1561000" />
       <workItem from="1761657396363" duration="1442000" />
-      <workItem from="1761697477236" duration="628000" />
+      <workItem from="1761697477236" duration="1614000" />
     </task>
     <servers />
   </component>
