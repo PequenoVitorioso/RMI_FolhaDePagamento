@@ -20,7 +20,7 @@ public class ServidorView {
              Registry registry;
             try {
                 registry = LocateRegistry.getRegistry(1200);
-                registry.list(); // Testa se o registry está ativo
+                registry.list();
                 System.out.println("Registry já está rodando.");
             } catch (RemoteException e) {
                 registry = LocateRegistry.createRegistry(1200);

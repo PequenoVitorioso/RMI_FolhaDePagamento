@@ -10,7 +10,7 @@ public class Conexao {
     public void conectar(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:/folha_pagamento";
+            String url = "jdbc:mysql://localhost:3306/folha_pagamento";
             String usuario = "root";
             String senha = "root";
             conector = DriverManager.getConnection(url, usuario, senha);
