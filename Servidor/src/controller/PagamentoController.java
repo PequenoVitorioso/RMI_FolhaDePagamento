@@ -1,6 +1,5 @@
 package controller;
 
-import model.CargoModel;
 import model.PagamentoModel;
 import util.Conexao;
 
@@ -115,4 +114,5 @@ public class PagamentoController extends UnicastRemoteObject implements Pagament
         c.desconectar();
         return retorno;
     }
+
 }

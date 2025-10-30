@@ -10,6 +10,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import controller.*;
 
+
 /**
  *
  * @author Yasmim Mendes

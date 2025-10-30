@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88ec636a-c2f5-4cc8-9e07-a36ce9d3e946" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Servidor/src/view/Servidor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/RMI_FolhaDePagamento.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/RMI_FolhaDePagamento.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cliente.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Cliente.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/Servidor.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/Servidor.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/CargoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/CargoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/PagamentoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/PagamentoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/PagamentoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/PagamentoInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/view/Servidor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/view/ServidorView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/view/ServidorView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,15 +42,19 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/paulo/OneDrive/Documentos/GitHub/RMI_FolhaDePagamento&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/paulo/OneDrive/Documentos/Arquivos UEMG/6º Período/Sistemas Distribuidos/mysql-connector-j-9.3.0.jar&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -75,7 +86,11 @@
       <workItem from="1761337096611" duration="2723000" />
       <workItem from="1761570157935" duration="1561000" />
       <workItem from="1761657396363" duration="1442000" />
-      <workItem from="1761697477236" duration="1614000" />
+      <workItem from="1761697477236" duration="2392000" />
+      <workItem from="1761777706166" duration="16000" />
+      <workItem from="1761777778888" duration="457000" />
+      <workItem from="1761779403224" duration="4338000" />
+      <workItem from="1761824521861" duration="462000" />
     </task>
     <servers />
   </component>

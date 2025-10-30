@@ -124,6 +124,7 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
+        System.out.println("DEBUG: Conexão = " + c.conector);
         //CRIAR SQL SELECT
         String sql = "select * from cargo";
         try{
