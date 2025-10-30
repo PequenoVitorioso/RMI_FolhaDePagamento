@@ -1,6 +1,9 @@
 package model;
 
-public class DepartamentoModel {
+import java.io.Serializable;
+
+public class DepartamentoModel implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id_departamento;
     private String nome;
     private String localizacao;
@@ -35,5 +38,10 @@ public class DepartamentoModel {
 
     public void setLocalizacao(String localizacao) {
         this.localizacao = localizacao;
+    }
+    
+    @Override
+    public String toString() {
+        return nome;
     }
 }

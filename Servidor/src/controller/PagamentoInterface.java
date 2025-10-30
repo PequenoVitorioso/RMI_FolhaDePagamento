@@ -11,5 +11,6 @@ public interface PagamentoInterface extends Remote {
     public boolean excluirPagamento(PagamentoModel p) throws RemoteException;
     public PagamentoModel consultaPagamento(PagamentoModel p) throws RemoteException;
     public ArrayList<PagamentoModel> listarPagamentosFuncionario(int funcionario) throws RemoteException;
-
+    public ArrayList<PagamentoModel> listarTodosPagamentos() throws RemoteException;
+    public boolean editarPagamento(PagamentoModel p) throws RemoteException;
 }

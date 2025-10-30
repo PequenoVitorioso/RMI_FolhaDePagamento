@@ -117,19 +117,16 @@ public class Principal extends javax.swing.JFrame {
     private void jmiDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDepartamentoActionPerformed
         DepartamentoView departamento = new DepartamentoView();
         departamento.setVisible(true);
-        areaTrabalho.add(departamento);
     }//GEN-LAST:event_jmiDepartamentoActionPerformed
 
     private void jmiFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFuncionarioActionPerformed
         FuncionarioView funcionario = new FuncionarioView();
         funcionario.setVisible(true);
-        areaTrabalho.add(funcionario);
     }//GEN-LAST:event_jmiFuncionarioActionPerformed
 
     private void jmiPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPagamentoActionPerformed
         PagamentoView pagamento = new PagamentoView();
         pagamento.setVisible(true);
-        areaTrabalho.add(pagamento);
     }//GEN-LAST:event_jmiPagamentoActionPerformed
 
     /**

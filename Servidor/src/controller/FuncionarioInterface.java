@@ -11,4 +11,5 @@ public interface FuncionarioInterface extends Remote {
     public boolean excluir(FuncionarioModel f) throws RemoteException;
     public FuncionarioModel pesquisar(FuncionarioModel f) throws RemoteException;
     public ArrayList<FuncionarioModel> listar() throws RemoteException;
+    public FuncionarioModel selecionar(FuncionarioModel f) throws RemoteException;
 }

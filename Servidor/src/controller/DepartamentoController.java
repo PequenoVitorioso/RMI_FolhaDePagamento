@@ -174,4 +174,32 @@ public class DepartamentoController extends UnicastRemoteObject implements Depar
 
         return retorno;
     }
+    
+    @Override
+    public ArrayList<DepartamentoModel> selecionarTodos() throws RemoteException {
+        ArrayList<DepartamentoModel> retorno = new ArrayList<>();
+        Conexao c = new Conexao();
+        c.conectar();
+
+        String sql = "SELECT id_departamento, nome_departamento, localizacao FROM departamento";
+
+        try {
+            PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            ResultSet result = sentenca.executeQuery();
+
+            while (result.next()) {
+                DepartamentoModel departamento = new DepartamentoModel();
+                departamento.setId_departamento(result.getInt("id_departamento"));
+                departamento.setNome(result.getString("nome_departamento"));
+                departamento.setLocalizacao(result.getString("localizacao"));
+
+                retorno.add(departamento);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro na seleção de todos os departamentos: " + e.getMessage());
+        }
+
+        c.desconectar();
+        return retorno;
+    }
 }

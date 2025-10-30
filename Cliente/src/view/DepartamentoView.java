@@ -27,6 +27,8 @@ public class DepartamentoView extends javax.swing.JFrame {
      */
     public DepartamentoView() {
         initComponents();
+        inicializa();
+        preencherTabela();
     }
 
     /**

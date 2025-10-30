@@ -115,4 +115,53 @@ public class PagamentoController extends UnicastRemoteObject implements Pagament
         c.desconectar();
         return retorno;
     }
+    
+    @Override
+    public ArrayList<PagamentoModel> listarTodosPagamentos() throws RemoteException {
+        ArrayList<PagamentoModel> retorno = new ArrayList<>();
+        Conexao c = new Conexao();
+        c.conectar();
+        String sql = "select * from pagamento";
+        try {
+            PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            ResultSet result = sentenca.executeQuery();
+            while(result.next()){
+                PagamentoModel p = new PagamentoModel();
+                p.setId_pagamento(result.getInt(1));
+                p.setId_cliente(result.getInt(2));
+                p.setValor_liquido(result.getFloat(3));
+                retorno.add(p);
+            }
+        } catch(SQLException e){
+            System.out.println("Erro na seleção: " + e.getMessage());
+        }
+        c.desconectar();
+        return retorno;
+    }
+    
+    @Override
+    public boolean editarPagamento(PagamentoModel p) throws RemoteException {
+        boolean retorno = false;
+        Conexao c = new Conexao();
+        c.conectar();
+
+        String sql = "UPDATE pagamento SET id_cliente = ?, valor_liquido = ? WHERE id_pagamento = ?";
+
+        try {
+            PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            sentenca.setInt(1, p.getId_cliente());       // ID do funcionário
+            sentenca.setFloat(2, p.getValor_liquido());  // Valor atualizado
+            sentenca.setInt(3, p.getId_pagamento());     // ID do pagamento
+
+            int linhasAfetadas = sentenca.executeUpdate();
+            if (linhasAfetadas > 0) {
+                retorno = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar pagamento: " + e.getMessage());
+        }
+
+        c.desconectar();
+        return retorno;
+    }
 }

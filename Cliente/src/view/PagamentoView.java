@@ -497,12 +497,12 @@ public class PagamentoView extends javax.swing.JFrame {
             pagamentoController = (PagamentoInterface) registry.lookup("pagamento");
             funcionarioController = (FuncionarioInterface) registry.lookup("funcionario");
 
-            System.out.println("✅ Conectado ao servidor RMI!");
+            System.out.println(" Conectado ao servidor RMI!");
         } catch (Exception e) {
             pagamentoController = null;
             funcionarioController = null;
             e.printStackTrace();
-            System.out.println("❌ Falha ao conectar ao servidor RMI!");
+            System.out.println("Falha ao conectar ao servidor RMI!");
         }
     }
 

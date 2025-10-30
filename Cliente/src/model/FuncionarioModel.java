@@ -1,6 +1,9 @@
 package model;
 
-public class FuncionarioModel {
+import java.io.Serializable;
+
+public class FuncionarioModel implements Serializable{
+    private static final long serialVersionUID = 1L;
     private int id_funcionario;
     private String nome;
     private int id_departamento;
@@ -39,5 +42,10 @@ public class FuncionarioModel {
 
     public void setId_cargo(int id_cargo) {
         this.id_cargo = id_cargo;
+    }
+    
+    @Override
+    public String toString() {
+        return this.getNome();
     }
 }

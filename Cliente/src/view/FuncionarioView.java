@@ -8,6 +8,19 @@ package view;
  *
  * @author Yasmim Mendes
  */
+
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.RemoteException;
+import javax.swing.JOptionPane;
+import model.DepartamentoModel;
+import controller.*;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import model.CargoModel;
+import model.FuncionarioModel;
+
 public class FuncionarioView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FuncionarioView.class.getName());
@@ -17,6 +30,9 @@ public class FuncionarioView extends javax.swing.JFrame {
      */
     public FuncionarioView() {
         initComponents();
+        inicializa();
+        preencherComboBox();
+        preencherTabela();
     }
 
     /**
@@ -28,50 +44,41 @@ public class FuncionarioView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jInternalFrame1 = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        jtxNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jTable = new javax.swing.JTable();
+        jbSalvar = new javax.swing.JButton();
+        jbEditar = new javax.swing.JButton();
+        jbFechar = new javax.swing.JButton();
+        jbPesquisar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jtxId_Funcionario = new javax.swing.JTextField();
+        jbNovo = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jcbCargo = new javax.swing.JComboBox<>();
+        jcbDepartamento = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jInternalFrame1.setVisible(true);
 
         jLabel1.setText("FUNCIONÁRIO");
 
         jLabel2.setText("Nome:");
 
-        jLabel3.setText("Cargo:");
-
-        jLabel4.setText("Departamento:");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jtxNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jtxNomeActionPerformed(evt);
             }
         });
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
-        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        jFormattedTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField2ActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -79,146 +86,554 @@ public class FuncionarioView extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Cargo", "Departamento"
+                "ID", "Nome", "Departamento", "Cargo"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, true, false
-            };
+        ));
+        jScrollPane1.setViewportView(jTable);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setText("Inserir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbSalvar.setText("Salvar");
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbSalvarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Editar");
-
-        jButton3.setText("Excluir");
-
-        jButton4.setText("Pesquisar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jbEditarActionPerformed(evt);
             }
         });
+
+        jbFechar.setText("Fechar");
+        jbFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFecharActionPerformed(evt);
+            }
+        });
+
+        jbPesquisar.setText("Pesquisar");
+        jbPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPesquisarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Código:");
+
+        jtxId_Funcionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxId_FuncionarioActionPerformed(evt);
+            }
+        });
+
+        jbNovo.setText("Novo");
+        jbNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNovoActionPerformed(evt);
+            }
+        });
+
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Departamento:");
+
+        jLabel6.setText("Cargo:");
+
+        jcbCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCargoActionPerformed(evt);
+            }
+        });
+
+        jcbDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbDepartamentoActionPerformed(evt);
+            }
+        });
+        jcbDepartamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jcbDepartamentoPropertyChange(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(jbNovo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbSalvar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbExcluir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbFechar)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(5, 5, 5)
+                                .addComponent(jcbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jtxId_Funcionario, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtxNome, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jbPesquisar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(305, 305, 305)
+                        .addComponent(jLabel1))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jtxId_Funcionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbPesquisar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jtxNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jcbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jcbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jbEditar)
+                                .addComponent(jbSalvar)
+                                .addComponent(jbNovo)
+                                .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(141, 141, 141)
-                                .addComponent(jButton2)
-                                .addGap(72, 72, 72)
-                                .addComponent(jButton3))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 24, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(258, 258, 258)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jtxNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jtxNomeActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
+        String nome = jtxNome.getText();
+        DepartamentoModel departamentoSelecionado = (DepartamentoModel) jcbDepartamento.getSelectedItem();
+        CargoModel cargoSelecionado = (CargoModel) jcbCargo.getSelectedItem();
+
+        // Validação
+        if (nome.isEmpty() || departamentoSelecionado == null || cargoSelecionado == null) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            // Criar o objeto funcionário
+            FuncionarioModel funcionario = new FuncionarioModel();
+            funcionario.setNome(nome);
+            funcionario.setId_departamento(departamentoSelecionado.getId_Departamento()); // pega apenas o ID
+            funcionario.setId_cargo(cargoSelecionado.getId_cargo());                     // pega apenas o ID
+
+            // Inserir via RMI
+            if (funcionarioController.inserir(funcionario)) {
+                JOptionPane.showMessageDialog(this, "Funcionário inserido com sucesso!");
+                limparCampos();        // limpar apenas campos do funcionário
+                preencherTabela();     // atualizar tabela consistente com deptoTexto/cargoTexto
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao inserir o funcionário!", "Erro no Banco", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro de comunicação com o servidor RMI!", "Erro de Conexão", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        if (jtxId_Funcionario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Selecione ou pesquise um funcionário primeiro!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            int idFuncionario = Integer.parseInt(jtxId_Funcionario.getText());
+            String nome = jtxNome.getText();
+            DepartamentoModel departamentoSelecionado = (DepartamentoModel) jcbDepartamento.getSelectedItem();
+            CargoModel cargoSelecionado = (CargoModel) jcbCargo.getSelectedItem();
+
+            // Validação
+            if (nome.isEmpty() || departamentoSelecionado == null || cargoSelecionado == null) {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Criar objeto funcionário
+            FuncionarioModel funcionario = new FuncionarioModel();
+            funcionario.setId_funcionario(idFuncionario);
+            funcionario.setNome(nome);
+            funcionario.setId_departamento(departamentoSelecionado.getId_Departamento());
+            funcionario.setId_cargo(cargoSelecionado.getId_cargo());
+
+            // Atualizar via RMI
+            if (funcionarioController.editar(funcionario)) {
+                JOptionPane.showMessageDialog(this, "Funcionário atualizado com sucesso!");
+                limparCampos();        // limpar apenas campos do funcionário
+                preencherTabela();     // atualizar tabela consistente com deptoTexto/cargoTexto
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao atualizar funcionário!", "Erro no Banco", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro de comunicação com o servidor RMI!", "Erro de Conexão", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID do funcionário inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jbFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbFecharActionPerformed
+
+    private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
+        if (jtxId_Funcionario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha o código do funcionário!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            int idFuncionario = Integer.parseInt(jtxId_Funcionario.getText());
+            FuncionarioModel funcionarioBusca = new FuncionarioModel();
+            funcionarioBusca.setId_funcionario(idFuncionario);
+
+            // Chamada RMI para buscar o funcionário
+            FuncionarioModel funcionario = funcionarioController.selecionar(funcionarioBusca);
+
+            if (funcionario != null) {
+                // Preencher campos
+                jtxNome.setText(funcionario.getNome());
+
+                // Selecionar departamento no JComboBox
+                for (int i = 0; i < jcbDepartamento.getItemCount(); i++) {
+                    DepartamentoModel dep = jcbDepartamento.getItemAt(i);
+                    if (dep.getId_Departamento() == funcionario.getId_departamento()) {
+                        jcbDepartamento.setSelectedIndex(i);
+                        break;
+                    }
+                }
+
+                // Selecionar cargo no JComboBox
+                for (int i = 0; i < jcbCargo.getItemCount(); i++) {
+                    CargoModel c = jcbCargo.getItemAt(i);
+                    if (c.getId_cargo() == funcionario.getId_cargo()) {
+                        jcbCargo.setSelectedIndex(i);
+                        break;
+                    }
+                }
+
+                // Ajustar botões e campos
+                jbSalvar.setEnabled(false);
+                jbEditar.setEnabled(true);
+                jbExcluir.setEnabled(true);
+
+                jtxId_Funcionario.setEditable(false);
+                jtxNome.setEditable(true);
+                jcbDepartamento.setEnabled(true);
+                jcbCargo.setEnabled(true);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Funcionário não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Código inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro de comunicação com o servidor RMI!", "Erro de Conexão", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbPesquisarActionPerformed
+
+    private void jtxId_FuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxId_FuncionarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_jtxId_FuncionarioActionPerformed
 
-    private void jFormattedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField2ActionPerformed
+    private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
+        jbPesquisar.setEnabled(false);
+        jbNovo.setEnabled(false);
+        jbEditar.setEnabled(false);
+        jbExcluir.setEnabled(false);
+        jbSalvar.setEnabled(true);
+
+        // Ajustar campos para edição
+        jtxId_Funcionario.setEditable(false);
+        jtxNome.setEditable(true);
+        jcbDepartamento.setEnabled(true);
+        jcbCargo.setEnabled(true);
+
+        // Limpar campos
+        jtxId_Funcionario.setText("");
+        jtxNome.setText("");
+        jcbDepartamento.setSelectedIndex(-1);
+        jcbCargo.setSelectedIndex(-1);
+
+        // Colocar foco no campo nome
+        jtxNome.requestFocus();
+    }//GEN-LAST:event_jbNovoActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        if (jtxId_Funcionario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite o código do funcionário!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            int idFuncionario = Integer.parseInt(jtxId_Funcionario.getText());
+
+            int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Deseja realmente excluir este funcionário?",
+                "Confirmar Exclusão",
+                JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            FuncionarioModel funcionario = new FuncionarioModel();
+            funcionario.setId_funcionario(idFuncionario);
+
+            if (funcionarioController.excluir(funcionario)) {
+                JOptionPane.showMessageDialog(this, "Funcionário excluído com sucesso!");
+                limparCampos(); // limpar campos específicos de funcionário
+                preencherTabela(); // preencher tabela consistente com deptoTexto/cargoTexto
+
+                // Atualizar estado dos botões
+                jbSalvar.setEnabled(true);
+                jbEditar.setEnabled(false);
+                jbExcluir.setEnabled(false);
+                jbPesquisar.setEnabled(true);
+                jbNovo.setEnabled(true);
+
+                jtxId_Funcionario.setEditable(true);
+                jtxNome.setEditable(false);
+                jcbDepartamento.setEnabled(false);
+                jcbCargo.setEnabled(false);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir funcionário!", "Erro no Banco", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Código do funcionário inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro de comunicação com o servidor RMI!", "Erro de Conexão", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jcbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCargoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField2ActionPerformed
+    }//GEN-LAST:event_jcbCargoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jcbDepartamentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jcbDepartamentoPropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jcbDepartamentoPropertyChange
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jcbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDepartamentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jcbDepartamentoActionPerformed
 
 
+    private FuncionarioInterface funcionarioController;
+    private DepartamentoInterface departamentoController;
+    private CargoInterface cargoController;
+
+    // Inicialização da conexão RMI
+    private void inicializa() {
+        try {
+            Registry registry = LocateRegistry.getRegistry("localhost", 1100);
+
+            funcionarioController = (FuncionarioInterface) registry.lookup("funcionario");
+            departamentoController = (DepartamentoInterface) registry.lookup("departamento");
+            cargoController = (CargoInterface) registry.lookup("cargo");
+
+            System.out.println("✅ Conectado ao servidor RMI!");
+        } catch (Exception e) {
+            funcionarioController = null;
+            departamentoController = null;
+            cargoController = null;
+            e.printStackTrace();
+            System.out.println("❌ Falha ao conectar ao servidor RMI!");
+        }
+    }
+    
+    private void preencherTabela() {
+    try {
+        ArrayList<FuncionarioModel> lista = funcionarioController.listar();
+        DefaultTableModel modeloTabela = (DefaultTableModel) jTable.getModel();
+        modeloTabela.setRowCount(0); // limpa a tabela antes de preencher
+
+        for (FuncionarioModel f : lista) {
+            String deptoTexto = "";
+            String cargoTexto = "";
+
+            // Procurar departamento correspondente ao ID do funcionário
+            for (int i = 0; i < jcbDepartamento.getItemCount(); i++) {
+                DepartamentoModel dep = jcbDepartamento.getItemAt(i);
+                if (dep.getId_Departamento() == f.getId_departamento()) { // == para int
+                    deptoTexto = dep.getNome(); // somente o nome
+                    break;
+                }
+            }
+
+            // Procurar cargo correspondente ao ID do funcionário
+            for (int i = 0; i < jcbCargo.getItemCount(); i++) {
+                CargoModel c = jcbCargo.getItemAt(i);
+                if (c.getId_cargo() == f.getId_cargo()) { // == para int
+                    cargoTexto = c.getNome(); // somente o nome
+                    break;
+                }
+            }
+
+            // Adiciona a linha na tabela
+            modeloTabela.addRow(new Object[] {
+                f.getId_funcionario(),
+                f.getNome(),
+                deptoTexto,
+                cargoTexto
+            });
+        }
+
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum funcionário cadastrado!", "Retorno Tela", JOptionPane.WARNING_MESSAGE);
+        }
+
+    } catch (RemoteException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Erro de comunicação com o servidor RMI!", "Erro de Conexão", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
+    private void limparCampos() {
+        jtxId_Funcionario.setText("");
+        jtxNome.setText("");
+        jcbDepartamento.setSelectedIndex(-1);
+        jcbCargo.setSelectedIndex(-1);
+
+        jtxId_Funcionario.setEditable(true);
+        jtxNome.setEditable(false);
+        jcbDepartamento.setEnabled(false);
+        jcbCargo.setEnabled(false);
+    }
+    
+    private void preencherComboBox() {
+        try {
+            // -------------------- DEPARTAMENTOS --------------------
+            ArrayList<DepartamentoModel> listaDepartamentos = departamentoController.listar();
+            DefaultComboBoxModel<DepartamentoModel> modeloDepto = new DefaultComboBoxModel<>();
+            for (DepartamentoModel d : listaDepartamentos) {
+                modeloDepto.addElement(d); // exibirá d.toString()
+            }
+            jcbDepartamento.setModel(modeloDepto);
+
+            // -------------------- CARGOS --------------------
+            ArrayList<CargoModel> listaCargos = cargoController.listar();
+            DefaultComboBoxModel<CargoModel> modeloCargo = new DefaultComboBoxModel<>();
+            for (CargoModel c : listaCargos) {
+                modeloCargo.addElement(c); // exibirá c.toString()
+            }
+            jcbCargo.setModel(modeloCargo);
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao preencher comboboxes!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable jTable;
+    private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbExcluir;
+    private javax.swing.JButton jbFechar;
+    private javax.swing.JButton jbNovo;
+    private javax.swing.JButton jbPesquisar;
+    private javax.swing.JButton jbSalvar;
+    private javax.swing.JComboBox<model.CargoModel> jcbCargo;
+    private javax.swing.JComboBox<model.DepartamentoModel> jcbDepartamento;
+    private javax.swing.JTextField jtxId_Funcionario;
+    private javax.swing.JTextField jtxNome;
     // End of variables declaration//GEN-END:variables
 }
