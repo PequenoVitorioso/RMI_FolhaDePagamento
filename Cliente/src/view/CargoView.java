@@ -266,21 +266,26 @@ public class CargoView extends javax.swing.JFrame {
         String descricao = jtxDescricao.getText();
         String salarioStr = jtxSalarioBase.getText();
 
+        //valida se todos os campos foram preenchidos
         if (nome.isEmpty() || descricao.isEmpty() || salarioStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
+            //converte o salário informado para float
             float salarioBase = Float.parseFloat(salarioStr);
 
+            //cria o objeto CargoModel e preenche os atributos
             CargoModel cargo = new CargoModel();
             cargo.setNome(nome);
             cargo.setDescricao(descricao);
             cargo.setSalario(salarioBase);
 
+            //chama o método remoto de inserção
             if (controller.inserir(cargo)) {
                 JOptionPane.showMessageDialog(this, "Cargo inserido com sucesso!");
+                //reativa botões e atualiza a tela
                 jbPesquisar.setEnabled(true);
                 jbNovo.setEnabled(true);
                 jbSalvar.setEnabled(true);
@@ -315,13 +320,16 @@ public class CargoView extends javax.swing.JFrame {
             CargoModel cargo = new CargoModel();
             cargo.setId_cargo(idCargo);
 
+            //busca o cargo no servidor
             cargo = controller.selecionar(cargo);
 
             if (cargo != null) {
+                //preenche os campos com os dados encontrados
                 jtxNome.setText(cargo.getNome());
                 jtxDescricao.setText(cargo.getDescricao());
                 jtxSalarioBase.setText(String.valueOf(cargo.getSalario()));
 
+                //ajusta estado dos botões e campos
                 jbSalvar.setEnabled(false);
                 jbEditar.setEnabled(true);
                 jbExcluir.setEnabled(true);
@@ -376,6 +384,7 @@ public class CargoView extends javax.swing.JFrame {
         }
 
         try {
+            //lê e valida os campos
             int idCargo = Integer.parseInt(jtxId_Cargo.getText());
             String nome = jtxNome.getText();
             String descricao = jtxDescricao.getText();
@@ -388,6 +397,7 @@ public class CargoView extends javax.swing.JFrame {
 
             float salarioBase = Float.parseFloat(salarioStr);
 
+            //atualiza o objeto e envia ao servidor
             CargoModel cargo = new CargoModel();
             cargo.setId_cargo(idCargo);
             cargo.setNome(nome);
@@ -419,6 +429,7 @@ public class CargoView extends javax.swing.JFrame {
         try {
             int idCargo = Integer.parseInt(jtxId_Cargo.getText());
 
+            //confirmação antes de excluir
             int confirm = JOptionPane.showConfirmDialog(
                     this,
                     "Deseja realmente excluir este cargo?",
@@ -438,7 +449,7 @@ public class CargoView extends javax.swing.JFrame {
                 limparCampos();
                 preencherTabela();
 
-                // Após excluir, o estado dos botões deve ser atualizado
+                //restaura estado inicial dos botões e campos
                 jbSalvar.setEnabled(true);
                 jbEditar.setEnabled(false);
                 jbExcluir.setEnabled(false);
@@ -473,13 +484,13 @@ public class CargoView extends javax.swing.JFrame {
     
     private void inicializa() {
     try{
-        Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
+        Registry registry = LocateRegistry.getRegistry("10.247.226.16", 1100);
         controller = (CargoInterface) registry.lookup("cargo");
-        System.out.println("✅ Conectado ao servidor RMI!");
+        System.out.println("Conectado ao servidor RMI!");
     } catch (Exception e) {
         controller = null;
         e.printStackTrace();
-        System.out.println("❌ Falha ao conectar ao servidor RMI!");
+        System.out.println("Falha ao conectar ao servidor RMI!");
     }
 }
 

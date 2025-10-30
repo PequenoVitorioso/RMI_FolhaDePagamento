@@ -251,18 +251,23 @@ public class DepartamentoView extends javax.swing.JFrame {
         String nome = jtxNome.getText();
         String localizacao = jtxLocalizacao.getText();
 
+        //verifica se todos os campos foram preenchidos
         if (nome.isEmpty() || localizacao.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
+            //cria e preenche o modelo do departamento
             DepartamentoModel departamento = new DepartamentoModel();
             departamento.setNome(nome);
             departamento.setLocalizacao(localizacao);
 
+            //chama o método remoto para inserir no banco via rmi
             if (controller.inserir(departamento)) {
                 JOptionPane.showMessageDialog(this, "Departamento inserido com sucesso!");
+                
+                //reativa os botões principais e limpa a tela
                 jbPesquisar.setEnabled(true);
                 jbNovo.setEnabled(true);
                 jbSalvar.setEnabled(true);
@@ -291,16 +296,19 @@ public class DepartamentoView extends javax.swing.JFrame {
             String nome = jtxNome.getText();
             String localizacao = jtxLocalizacao.getText();
 
+            //verifica se os campos foram preenchidos
             if (nome.isEmpty() || localizacao.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            //cria o modelo com os novos dados
             DepartamentoModel departamento = new DepartamentoModel();
             departamento.setId_Departamento(idDepartamento);
             departamento.setNome(nome);
             departamento.setLocalizacao(localizacao);
 
+            //chama o método remoto para atualizar
             if (controller.editar(departamento)) {
                 JOptionPane.showMessageDialog(this, "Departamento atualizado com sucesso!");
                 limparCampos();
@@ -329,12 +337,15 @@ public class DepartamentoView extends javax.swing.JFrame {
             DepartamentoModel departamento = new DepartamentoModel();
             departamento.setId_Departamento(idDepartamento);
 
+            //busca o departamento via RMI
             departamento = controller.selecionar(departamento);
 
             if (departamento != null) {
+                //exibe os dados encontrados nos campos
                 jtxNome.setText(departamento.getNome());
                 jtxLocalizacao.setText(departamento.getLocalizacao());
 
+                //atualiza estado dos botões e campos
                 jbSalvar.setEnabled(false);
                 jbEditar.setEnabled(true);
                 jbExcluir.setEnabled(true);
@@ -358,12 +369,14 @@ public class DepartamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxId_DepartamentoActionPerformed
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
+        //desativa botões que não devem ser usados durante a inserção
         jbPesquisar.setEnabled(false);
         jbNovo.setEnabled(false);
         jbEditar.setEnabled(false);
         jbExcluir.setEnabled(false);
         jbSalvar.setEnabled(true);
 
+        //habilita edição dos campos
         jtxId_Departamento.setEditable(false);
         jtxNome.setEditable(true);
         jtxLocalizacao.setEditable(true);
@@ -384,6 +397,7 @@ public class DepartamentoView extends javax.swing.JFrame {
         try {
             int idDepartamento = Integer.parseInt(jtxId_Departamento.getText());
 
+            //confirmação de exclusão
             int confirm = JOptionPane.showConfirmDialog(
                 this,
                 "Deseja realmente excluir este departamento?",
@@ -395,6 +409,7 @@ public class DepartamentoView extends javax.swing.JFrame {
                 return;
             }
 
+            //cria o modelo e envia para exclusão
             DepartamentoModel departamento = new DepartamentoModel();
             departamento.setId_Departamento(idDepartamento);
 
@@ -403,7 +418,7 @@ public class DepartamentoView extends javax.swing.JFrame {
                 limparCampos();
                 preencherTabela();
 
-                // Após excluir, o estado dos botões deve ser atualizado
+                //atualiza o estado dos botões
                 jbSalvar.setEnabled(true);
                 jbEditar.setEnabled(false);
                 jbExcluir.setEnabled(false);
@@ -433,13 +448,16 @@ public class DepartamentoView extends javax.swing.JFrame {
     
     private void inicializa() {
     try {
-        Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
+        //recebe o registro RMI no IP e porta do servidor
+        Registry registry = LocateRegistry.getRegistry("10.247.226.16", 1100);
+        
+        //busca pela interface remota "departamento"
         controller = (DepartamentoInterface) registry.lookup("departamento");
-        System.out.println("✅ Conectado ao servidor RMI!");
+        System.out.println("Conectado ao servidor RMI!");
     } catch (Exception e) {
         controller = null;
         e.printStackTrace();
-        System.out.println("❌ Falha ao conectar ao servidor RMI!");
+        System.out.println("Falha ao conectar ao servidor RMI!");
     }
 }
 
@@ -449,6 +467,7 @@ public class DepartamentoView extends javax.swing.JFrame {
             DefaultTableModel modeloTabela = (DefaultTableModel) jTable.getModel();
             modeloTabela.setRowCount(0);
 
+            //adiciona cada departamento como linha na tabela
             for (DepartamentoModel d : lista) {
                 modeloTabela.addRow(new Object[] {
                     d.getId_Departamento(),

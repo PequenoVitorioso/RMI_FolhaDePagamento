@@ -12,11 +12,6 @@ import model.PagamentoModel;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-
-/**
- *
- * @author Yasmim Mendes
- */
 import controller.CargoInterface;
 import controller.DepartamentoInterface;
 import controller.FuncionarioInterface;
@@ -24,6 +19,11 @@ import controller.PagamentoInterface;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+/**
+ *
+ * @author Yasmim Mendes
+ */
+
 public class PagamentoView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PagamentoView.class.getName());
@@ -505,7 +505,7 @@ public class PagamentoView extends javax.swing.JFrame {
     private void inicializa() {
         try {
             //localiza  o registro rmi no host e porta definidos
-            Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
+            Registry registry = LocateRegistry.getRegistry("10.247.226.16", 1100);
 
             //recebe as referências remotas dos objetos registrados
             pagamentoController = (PagamentoInterface) registry.lookup("pagamento");

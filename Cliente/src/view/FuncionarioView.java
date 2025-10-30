@@ -23,8 +23,6 @@ import model.FuncionarioModel;
 
 public class FuncionarioView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FuncionarioView.class.getName());
-
     /**
      * Creates new form FuncionarioView
      */
@@ -291,30 +289,34 @@ public class FuncionarioView extends javax.swing.JFrame {
         DepartamentoModel departamentoSelecionado = (DepartamentoModel) jcbDepartamento.getSelectedItem();
         CargoModel cargoSelecionado = (CargoModel) jcbCargo.getSelectedItem();
 
-        // Validação
+        //verifica se todos os campos obrigatórios foram preenchidos
         if (nome.isEmpty() || departamentoSelecionado == null || cargoSelecionado == null) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            // Criar o objeto funcionário
+            //cria o objeto funcionário
             FuncionarioModel funcionario = new FuncionarioModel();
             funcionario.setNome(nome);
-            funcionario.setId_departamento(departamentoSelecionado.getId_Departamento()); // pega apenas o ID
-            funcionario.setId_cargo(cargoSelecionado.getId_cargo());                     // pega apenas o ID
+            funcionario.setId_departamento(departamentoSelecionado.getId_Departamento());
+            funcionario.setId_cargo(cargoSelecionado.getId_cargo());
 
-            // Inserir via RMI
+            //envia o funcionário para o servidor via rmi
             if (funcionarioController.inserir(funcionario)) {
                 JOptionPane.showMessageDialog(this, "Funcionário inserido com sucesso!");
+                
+                //reabilita os botões da tela
                 jbPesquisar.setEnabled(true);
                 jbNovo.setEnabled(true);
                 jbSalvar.setEnabled(true);
                 jbEditar.setEnabled(true);
                 jbExcluir.setEnabled(true);
                 jbFechar.setEnabled(true);
-                limparCampos();        // limpar apenas campos do funcionário
-                preencherTabela();     // atualizar tabela consistente com deptoTexto/cargoTexto
+                
+                //limpa campos e atualiza a tabela
+                limparCampos();
+                preencherTabela();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao inserir o funcionário!", "Erro no Banco", JOptionPane.ERROR_MESSAGE);
             }
@@ -326,6 +328,7 @@ public class FuncionarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        //verifica se tem um funcionário selecionado
         if (jtxId_Funcionario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Selecione ou pesquise um funcionário primeiro!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
@@ -337,24 +340,24 @@ public class FuncionarioView extends javax.swing.JFrame {
             DepartamentoModel departamentoSelecionado = (DepartamentoModel) jcbDepartamento.getSelectedItem();
             CargoModel cargoSelecionado = (CargoModel) jcbCargo.getSelectedItem();
 
-            // Validação
+            //valida de campos obrigatórios
             if (nome.isEmpty() || departamentoSelecionado == null || cargoSelecionado == null) {
                 JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Criar objeto funcionário
+            //cria objeto com os novos dados do funcionário
             FuncionarioModel funcionario = new FuncionarioModel();
             funcionario.setId_funcionario(idFuncionario);
             funcionario.setNome(nome);
             funcionario.setId_departamento(departamentoSelecionado.getId_Departamento());
             funcionario.setId_cargo(cargoSelecionado.getId_cargo());
 
-            // Atualizar via RMI
+            //atualizar via rmi
             if (funcionarioController.editar(funcionario)) {
                 JOptionPane.showMessageDialog(this, "Funcionário atualizado com sucesso!");
-                limparCampos();        // limpar apenas campos do funcionário
-                preencherTabela();     // atualizar tabela consistente com deptoTexto/cargoTexto
+                limparCampos();
+                preencherTabela();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao atualizar funcionário!", "Erro no Banco", JOptionPane.ERROR_MESSAGE);
             }
@@ -372,24 +375,28 @@ public class FuncionarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbFecharActionPerformed
 
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
+        //verifica se o campo de ID está preenchido
         if (jtxId_Funcionario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha o código do funcionário!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
+            //converte o valor do campo de texto para inteiro
             int idFuncionario = Integer.parseInt(jtxId_Funcionario.getText());
+            
+            //cria um objeto apenas com o ID (usado para buscar no servidor)
             FuncionarioModel funcionarioBusca = new FuncionarioModel();
             funcionarioBusca.setId_funcionario(idFuncionario);
 
-            // Chamada RMI para buscar o funcionário
+            //chamada remota via rmi pra buscar o funcionário no servidor
             FuncionarioModel funcionario = funcionarioController.selecionar(funcionarioBusca);
 
             if (funcionario != null) {
-                // Preencher campos
+                //preenche campos se encontrar
                 jtxNome.setText(funcionario.getNome());
 
-                // Selecionar departamento no JComboBox
+                //seleciona o departamento no combobox
                 for (int i = 0; i < jcbDepartamento.getItemCount(); i++) {
                     DepartamentoModel dep = jcbDepartamento.getItemAt(i);
                     if (dep.getId_Departamento() == funcionario.getId_departamento()) {
@@ -398,7 +405,7 @@ public class FuncionarioView extends javax.swing.JFrame {
                     }
                 }
 
-                // Selecionar cargo no JComboBox
+                //seleciona o cargo correspondente no combo
                 for (int i = 0; i < jcbCargo.getItemCount(); i++) {
                     CargoModel c = jcbCargo.getItemAt(i);
                     if (c.getId_cargo() == funcionario.getId_cargo()) {
@@ -407,7 +414,7 @@ public class FuncionarioView extends javax.swing.JFrame {
                     }
                 }
 
-                // Ajustar botões e campos
+                //ajusta o estado dos botões e campos
                 jbSalvar.setEnabled(false);
                 jbEditar.setEnabled(true);
                 jbExcluir.setEnabled(true);
@@ -434,37 +441,41 @@ public class FuncionarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxId_FuncionarioActionPerformed
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
+        //desabilita botões que não deve ser usados durante as inserções
         jbPesquisar.setEnabled(false);
         jbNovo.setEnabled(false);
         jbEditar.setEnabled(false);
         jbExcluir.setEnabled(false);
         jbSalvar.setEnabled(true);
 
-        // Ajustar campos para edição
+        //ajusta campos para edição
         jtxId_Funcionario.setEditable(false);
         jtxNome.setEditable(true);
         jcbDepartamento.setEnabled(true);
         jcbCargo.setEnabled(true);
 
-        // Limpar campos
+        //limpa campos e combobox
         jtxId_Funcionario.setText("");
         jtxNome.setText("");
         jcbDepartamento.setSelectedIndex(-1);
         jcbCargo.setSelectedIndex(-1);
 
-        // Colocar foco no campo nome
+        //coloca foco no campo nome
         jtxNome.requestFocus();
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        //verifica se o campo de ID está preenchido
         if (jtxId_Funcionario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Digite o código do funcionário!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
+            //converte o valor do campo de texto em número inteiro
             int idFuncionario = Integer.parseInt(jtxId_Funcionario.getText());
 
+            //exibe uma janela para confirmar a exclusão
             int confirm = JOptionPane.showConfirmDialog(
                 this,
                 "Deseja realmente excluir este funcionário?",
@@ -472,19 +483,22 @@ public class FuncionarioView extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION
             );
 
+            //caso o usuário clique em não, cancela a operação
             if (confirm != JOptionPane.YES_OPTION) {
                 return;
             }
 
+            //cria um objeto funcionário apenas com o ID a ser excluído
             FuncionarioModel funcionario = new FuncionarioModel();
             funcionario.setId_funcionario(idFuncionario);
 
+            //solicita ao servidor que exclua o funcionário via rmi
             if (funcionarioController.excluir(funcionario)) {
                 JOptionPane.showMessageDialog(this, "Funcionário excluído com sucesso!");
-                limparCampos(); // limpar campos específicos de funcionário
-                preencherTabela(); // preencher tabela consistente com deptoTexto/cargoTexto
+                limparCampos();
+                preencherTabela();
 
-                // Atualizar estado dos botões
+                //atualizar estado dos botões e campos
                 jbSalvar.setEnabled(true);
                 jbEditar.setEnabled(false);
                 jbExcluir.setEnabled(false);
@@ -520,58 +534,65 @@ public class FuncionarioView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbDepartamentoActionPerformed
 
-
     private FuncionarioInterface funcionarioController;
     private DepartamentoInterface departamentoController;
     private CargoInterface cargoController;
 
-    // Inicialização da conexão RMI
+    //conexão RMI
     private void inicializa() {
         try {
-            Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
+            //recebe o registro do servidor rmi no IP e na porta
+            Registry registry = LocateRegistry.getRegistry("10.247.226.16", 1100);
+            
+            // Faz a busca das interfaces remotas registradas no servidor
             funcionarioController = (FuncionarioInterface) registry.lookup("funcionario");
             departamentoController = (DepartamentoInterface) registry.lookup("departamento");
             cargoController = (CargoInterface) registry.lookup("cargo");
 
-            System.out.println("✅ Conectado ao servidor RMI!");
+            System.out.println("Conectado ao servidor RMI!");
         } catch (Exception e) {
+            //caso ocorra erro de conexão, zera as referências
             funcionarioController = null;
             departamentoController = null;
             cargoController = null;
             e.printStackTrace();
-            System.out.println("❌ Falha ao conectar ao servidor RMI!");
+            System.out.println("Falha ao conectar ao servidor RMI!");
         }
     }
     
     private void preencherTabela() {
     try {
+        //busca todos os funcionários do servidor rmi
         ArrayList<FuncionarioModel> lista = funcionarioController.listar();
+        
+        //recebe o modelo da tabela e limpa as linhas antigas
         DefaultTableModel modeloTabela = (DefaultTableModel) jTable.getModel();
-        modeloTabela.setRowCount(0); // limpa a tabela antes de preencher
+        modeloTabela.setRowCount(0);
 
+        //percorre a lista de funcionários recebida do servidor
         for (FuncionarioModel f : lista) {
             String deptoTexto = "";
             String cargoTexto = "";
 
-            // Procurar departamento correspondente ao ID do funcionário
+            //procura departamento correspondente ao ID do funcionário
             for (int i = 0; i < jcbDepartamento.getItemCount(); i++) {
                 DepartamentoModel dep = jcbDepartamento.getItemAt(i);
-                if (dep.getId_Departamento() == f.getId_departamento()) { // == para int
-                    deptoTexto = dep.getNome(); // somente o nome
+                if (dep.getId_Departamento() == f.getId_departamento()) {
+                    deptoTexto = dep.getNome();
                     break;
                 }
             }
 
-            // Procurar cargo correspondente ao ID do funcionário
+            //procura cargo correspondente ao ID do funcionário
             for (int i = 0; i < jcbCargo.getItemCount(); i++) {
                 CargoModel c = jcbCargo.getItemAt(i);
-                if (c.getId_cargo() == f.getId_cargo()) { // == para int
-                    cargoTexto = c.getNome(); // somente o nome
+                if (c.getId_cargo() == f.getId_cargo()) {
+                    cargoTexto = c.getNome();
                     break;
                 }
             }
 
-            // Adiciona a linha na tabela
+            //adiciona a linha na tabela com os dados do funcionário
             modeloTabela.addRow(new Object[] {
                 f.getId_funcionario(),
                 f.getNome(),
@@ -580,6 +601,7 @@ public class FuncionarioView extends javax.swing.JFrame {
             });
         }
 
+        //exibe mensagem se não houver funcionários cadastrados
         if (lista.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nenhum funcionário cadastrado!", "Retorno Tela", JOptionPane.WARNING_MESSAGE);
         }
@@ -605,19 +627,21 @@ public class FuncionarioView extends javax.swing.JFrame {
     
     private void preencherComboBox() {
         try {
-            // -------------------- DEPARTAMENTOS --------------------
+            //busca lista de departamentos do servidor rmi
             ArrayList<DepartamentoModel> listaDepartamentos = departamentoController.listar();
+            
+            //cria o modelo do combobox e adiciona cada departamento
             DefaultComboBoxModel<DepartamentoModel> modeloDepto = new DefaultComboBoxModel<>();
             for (DepartamentoModel d : listaDepartamentos) {
-                modeloDepto.addElement(d); // exibirá d.toString()
+                modeloDepto.addElement(d);
             }
             jcbDepartamento.setModel(modeloDepto);
 
-            // -------------------- CARGOS --------------------
+            //busca lista de cargos do servidor RMI
             ArrayList<CargoModel> listaCargos = cargoController.listar();
             DefaultComboBoxModel<CargoModel> modeloCargo = new DefaultComboBoxModel<>();
             for (CargoModel c : listaCargos) {
-                modeloCargo.addElement(c); // exibirá c.toString()
+                modeloCargo.addElement(c);
             }
             jcbCargo.setModel(modeloCargo);
 
