@@ -12,11 +12,6 @@ import model.PagamentoModel;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-
-/**
- *
- * @author Yasmim Mendes
- */
 import controller.CargoInterface;
 import controller.DepartamentoInterface;
 import controller.FuncionarioInterface;
@@ -24,6 +19,11 @@ import controller.PagamentoInterface;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+/**
+ *
+ * @author Yasmim Mendes
+ */
+
 public class PagamentoView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PagamentoView.class.getName());
