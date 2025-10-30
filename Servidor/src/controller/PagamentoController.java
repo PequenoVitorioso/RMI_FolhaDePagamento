@@ -21,7 +21,7 @@ public class PagamentoController extends UnicastRemoteObject implements Pagament
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL INSERT
-        String sql = "insert into pagamento (id_cliente, valor_liquido) values (?,?)";
+        String sql = "insert into pagamento (id_funcionario, valor_liquido) values (?,?)";
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             //PASSAR PARAMETROS
@@ -98,7 +98,7 @@ public class PagamentoController extends UnicastRemoteObject implements Pagament
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL SELECT
-        String sql = "select * from pagamento where id_cliente = ?";
+        String sql = "select * from pagamento where id_funcionario = ?";
         try{
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             ResultSet result = sentenca.executeQuery();
@@ -145,7 +145,7 @@ public class PagamentoController extends UnicastRemoteObject implements Pagament
         Conexao c = new Conexao();
         c.conectar();
 
-        String sql = "UPDATE pagamento SET id_cliente = ?, valor_liquido = ? WHERE id_pagamento = ?";
+        String sql = "UPDATE pagamento SET id_funcionario = ?, valor_liquido = ? WHERE id_pagamento = ?";
 
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
