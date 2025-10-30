@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.CargoModel;
 
 public class FuncionarioController extends UnicastRemoteObject implements FuncionarioInterface {
     public FuncionarioController()throws RemoteException{}
@@ -143,6 +144,40 @@ public class FuncionarioController extends UnicastRemoteObject implements Funcio
         }
         //DESCONECTAR
         c.desconectar();
+        return retorno;
+    }
+    
+    @Override
+    public FuncionarioModel selecionar(FuncionarioModel funcionario) throws RemoteException {
+        FuncionarioModel retorno = null;
+
+        // CONECTAR COM O BANCO
+        Conexao c = new Conexao();
+        c.conectar();
+
+        String sql = "SELECT * FROM funcionario WHERE id_funcionario = ?";
+
+        try {
+            PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            sentenca.setInt(1, funcionario.getId_funcionario());
+
+            ResultSet rs = sentenca.executeQuery();
+
+            if (rs.next()) {
+                retorno = new FuncionarioModel();
+                retorno.setId_funcionario(rs.getInt("id_funcionario"));
+                retorno.setNome(rs.getString("nome"));
+                retorno.setId_departamento(rs.getInt("id_departamento")); // chave estrangeira
+                retorno.setId_cargo(rs.getInt("id_cargo"));               // chave estrangeira
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao selecionar funcionário: " + e.getMessage());
+        }
+
+        // DESCONECTAR
+        c.desconectar();
+
         return retorno;
     }
 }

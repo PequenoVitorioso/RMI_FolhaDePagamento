@@ -50,4 +50,9 @@ public class CargoModel implements Serializable {
     public void setSalario(float salario) {
         this.salario = salario;
     }
+    
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

@@ -1,6 +1,9 @@
 package model;
 
-public class PagamentoModel {
+import java.io.Serializable;
+
+public class PagamentoModel implements Serializable{
+    private static final long serialVersionUID = 1L;
     private int id_pagamento;
     private int id_cliente;
     private float valor_liquido;
