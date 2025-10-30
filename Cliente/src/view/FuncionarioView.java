@@ -528,7 +528,7 @@ public class FuncionarioView extends javax.swing.JFrame {
     // Inicialização da conexão RMI
     private void inicializa() {
         try {
-            Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
+            Registry registry = LocateRegistry.getRegistry("10.247.226.16", 1100);
             funcionarioController = (FuncionarioInterface) registry.lookup("funcionario");
             departamentoController = (DepartamentoInterface) registry.lookup("departamento");
             cargoController = (CargoInterface) registry.lookup("cargo");

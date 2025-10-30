@@ -505,7 +505,7 @@ public class PagamentoView extends javax.swing.JFrame {
     private void inicializa() {
         try {
             //localiza  o registro rmi no host e porta definidos
-            Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
+            Registry registry = LocateRegistry.getRegistry("10.247.226.16", 1100);
 
             //recebe as referências remotas dos objetos registrados
             pagamentoController = (PagamentoInterface) registry.lookup("pagamento");

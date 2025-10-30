@@ -473,7 +473,7 @@ public class CargoView extends javax.swing.JFrame {
     
     private void inicializa() {
     try{
-        Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
+        Registry registry = LocateRegistry.getRegistry("10.247.226.16", 1100);
         controller = (CargoInterface) registry.lookup("cargo");
         System.out.println("✅ Conectado ao servidor RMI!");
     } catch (Exception e) {
