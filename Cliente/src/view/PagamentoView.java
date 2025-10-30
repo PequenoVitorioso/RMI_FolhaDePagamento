@@ -87,7 +87,15 @@ public class PagamentoView extends javax.swing.JFrame {
             new String [] {
                 "ID", "Funcionário", "Valor"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable);
 
         jbSalvar.setText("Salvar");
@@ -275,6 +283,12 @@ public class PagamentoView extends javax.swing.JFrame {
             //envia o pagamento para o servidor via RMI
             if (pagamentoController.registrarPagamento(pagamento)) {
                 JOptionPane.showMessageDialog(this, "Pagamento registrado com sucesso!");
+                jbPesquisar.setEnabled(true);
+                jbNovo.setEnabled(true);
+                jbSalvar.setEnabled(true);
+                jbEditar.setEnabled(true);
+                jbExcluir.setEnabled(true);
+                jbFechar.setEnabled(true);
                 limparCampos();
                 preencherTabela();
             } else {
@@ -491,7 +505,7 @@ public class PagamentoView extends javax.swing.JFrame {
     private void inicializa() {
         try {
             //localiza  o registro rmi no host e porta definidos
-            Registry registry = LocateRegistry.getRegistry("localhost", 1100);
+            Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
 
             //recebe as referências remotas dos objetos registrados
             pagamentoController = (PagamentoInterface) registry.lookup("pagamento");

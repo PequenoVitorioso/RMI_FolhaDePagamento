@@ -18,7 +18,7 @@ import controller.*;
 public class ServidorView {
     public static void main(String[] args){
         try{
-            System.setProperty("java.rmi.server.hostname", "localhost"); // ADICIONAR IP DA MAQUINA
+            System.setProperty("java.rmi.server.hostname", "10.247.226.16"); // ADICIONAR IP DA MAQUINA
             Registry conexao = LocateRegistry.createRegistry(1100);
             System.out.println("Servidor Iniciado! ");
             
