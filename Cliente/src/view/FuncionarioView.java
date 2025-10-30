@@ -88,7 +88,15 @@ public class FuncionarioView extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nome", "Departamento", "Cargo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable);
 
         jbSalvar.setText("Salvar");
@@ -220,7 +228,6 @@ public class FuncionarioView extends javax.swing.JFrame {
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -300,6 +307,12 @@ public class FuncionarioView extends javax.swing.JFrame {
             // Inserir via RMI
             if (funcionarioController.inserir(funcionario)) {
                 JOptionPane.showMessageDialog(this, "Funcionário inserido com sucesso!");
+                jbPesquisar.setEnabled(true);
+                jbNovo.setEnabled(true);
+                jbSalvar.setEnabled(true);
+                jbEditar.setEnabled(true);
+                jbExcluir.setEnabled(true);
+                jbFechar.setEnabled(true);
                 limparCampos();        // limpar apenas campos do funcionário
                 preencherTabela();     // atualizar tabela consistente com deptoTexto/cargoTexto
             } else {
@@ -515,8 +528,7 @@ public class FuncionarioView extends javax.swing.JFrame {
     // Inicialização da conexão RMI
     private void inicializa() {
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost", 1100);
-
+            Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
             funcionarioController = (FuncionarioInterface) registry.lookup("funcionario");
             departamentoController = (DepartamentoInterface) registry.lookup("departamento");
             cargoController = (CargoInterface) registry.lookup("cargo");

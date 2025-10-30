@@ -54,9 +54,9 @@ public class CargoView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jtxId_Cargo = new javax.swing.JTextField();
         jtxSalarioBase = new javax.swing.JTextField();
-        jbNovo1 = new javax.swing.JButton();
+        jbNovo = new javax.swing.JButton();
         jbExcluir = new javax.swing.JButton();
-        jtxNome1 = new javax.swing.JTextField();
+        jtxDescricao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,7 +87,7 @@ public class CargoView extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -138,10 +138,10 @@ public class CargoView extends javax.swing.JFrame {
             }
         });
 
-        jbNovo1.setText("Novo");
-        jbNovo1.addActionListener(new java.awt.event.ActionListener() {
+        jbNovo.setText("Novo");
+        jbNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbNovo1ActionPerformed(evt);
+                jbNovoActionPerformed(evt);
             }
         });
 
@@ -152,9 +152,9 @@ public class CargoView extends javax.swing.JFrame {
             }
         });
 
-        jtxNome1.addActionListener(new java.awt.event.ActionListener() {
+        jtxDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxNome1ActionPerformed(evt);
+                jtxDescricaoActionPerformed(evt);
             }
         });
 
@@ -176,7 +176,7 @@ public class CargoView extends javax.swing.JFrame {
                         .addGap(108, 108, 108)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                                .addComponent(jbNovo1)
+                                .addComponent(jbNovo)
                                 .addGap(18, 18, 18)
                                 .addComponent(jbSalvar)
                                 .addGap(18, 18, 18)
@@ -194,7 +194,7 @@ public class CargoView extends javax.swing.JFrame {
                                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jtxNome1))
+                                        .addComponent(jtxDescricao))
                                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -224,7 +224,7 @@ public class CargoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jtxNome1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -235,7 +235,7 @@ public class CargoView extends javax.swing.JFrame {
                     .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbEditar)
                         .addComponent(jbSalvar)
-                        .addComponent(jbNovo1)
+                        .addComponent(jbNovo)
                         .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,7 +263,7 @@ public class CargoView extends javax.swing.JFrame {
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         String nome = jtxNome.getText();
-        String descricao = jtxNome1.getText();
+        String descricao = jtxDescricao.getText();
         String salarioStr = jtxSalarioBase.getText();
 
         if (nome.isEmpty() || descricao.isEmpty() || salarioStr.isEmpty()) {
@@ -281,6 +281,12 @@ public class CargoView extends javax.swing.JFrame {
 
             if (controller.inserir(cargo)) {
                 JOptionPane.showMessageDialog(this, "Cargo inserido com sucesso!");
+                jbPesquisar.setEnabled(true);
+                jbNovo.setEnabled(true);
+                jbSalvar.setEnabled(true);
+                jbEditar.setEnabled(true);
+                jbExcluir.setEnabled(true);
+                jbFechar.setEnabled(true);
                 limparCampos();
                 preencherTabela();
             } else {
@@ -313,7 +319,7 @@ public class CargoView extends javax.swing.JFrame {
 
             if (cargo != null) {
                 jtxNome.setText(cargo.getNome());
-                jtxNome1.setText(cargo.getDescricao());
+                jtxDescricao.setText(cargo.getDescricao());
                 jtxSalarioBase.setText(String.valueOf(cargo.getSalario()));
 
                 jbSalvar.setEnabled(false);
@@ -322,7 +328,7 @@ public class CargoView extends javax.swing.JFrame {
 
                 jtxId_Cargo.setEditable(false);
                 jtxNome.setEditable(true);
-                jtxNome1.setEditable(true);
+                jtxDescricao.setEditable(true);
                 jtxSalarioBase.setEditable(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Cargo não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -339,25 +345,25 @@ public class CargoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxSalarioBaseActionPerformed
 
-    private void jbNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovo1ActionPerformed
+    private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
         jbPesquisar.setEnabled(false);
-        jbNovo1.setEnabled(false);
+        jbNovo.setEnabled(false);
         jbEditar.setEnabled(false);
         jbExcluir.setEnabled(false);
         jbSalvar.setEnabled(true);
         
         jtxId_Cargo.setEditable(false);
         jtxNome.setEditable(true);
-        jtxNome1.setEditable(true);
+        jtxDescricao.setEditable(true);
         jtxSalarioBase.setEditable(true);
 
         jtxId_Cargo.setText("");
         jtxNome.setText("");
-        jtxNome1.setText("");
+        jtxDescricao.setText("");
         jtxSalarioBase.setText("");
         
         jtxNome.requestFocus();
-    }//GEN-LAST:event_jbNovo1ActionPerformed
+    }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jtxId_CargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxId_CargoActionPerformed
         // TODO add your handling code here:
@@ -372,7 +378,7 @@ public class CargoView extends javax.swing.JFrame {
         try {
             int idCargo = Integer.parseInt(jtxId_Cargo.getText());
             String nome = jtxNome.getText();
-            String descricao = jtxNome1.getText();
+            String descricao = jtxDescricao.getText();
             String salarioStr = jtxSalarioBase.getText();
 
             if (nome.isEmpty() || descricao.isEmpty() || salarioStr.isEmpty()) {
@@ -437,11 +443,11 @@ public class CargoView extends javax.swing.JFrame {
                 jbEditar.setEnabled(false);
                 jbExcluir.setEnabled(false);
                 jbPesquisar.setEnabled(true);
-                jbNovo1.setEnabled(true);
+                jbNovo.setEnabled(true);
 
                 jtxId_Cargo.setEditable(true);
                 jtxNome.setEditable(false);
-                jtxNome1.setEditable(false);
+                jtxDescricao.setEditable(false);
                 jtxSalarioBase.setEditable(false);
 
             } else {
@@ -459,15 +465,15 @@ public class CargoView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jbFecharActionPerformed
 
-    private void jtxNome1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxNome1ActionPerformed
+    private void jtxDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxDescricaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtxNome1ActionPerformed
+    }//GEN-LAST:event_jtxDescricaoActionPerformed
 
     private CargoInterface controller;
     
     private void inicializa() {
-    try {
-        Registry registry = LocateRegistry.getRegistry("localhost", 1100);
+    try{
+        Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
         controller = (CargoInterface) registry.lookup("cargo");
         System.out.println("✅ Conectado ao servidor RMI!");
     } catch (Exception e) {
@@ -505,12 +511,12 @@ public class CargoView extends javax.swing.JFrame {
     private void limparCampos() {
         jtxId_Cargo.setText("");
         jtxNome.setText("");
-        jtxNome1.setText("");
+        jtxDescricao.setText("");
         jtxSalarioBase.setText("");
 
         jtxId_Cargo.setEditable(true);
         jtxNome.setEditable(false);
-        jtxNome1.setEditable(false);
+        jtxDescricao.setEditable(false);
         jtxSalarioBase.setEditable(false);
     }
 
@@ -526,12 +532,12 @@ public class CargoView extends javax.swing.JFrame {
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbFechar;
-    private javax.swing.JButton jbNovo1;
+    private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbPesquisar;
     private javax.swing.JButton jbSalvar;
+    private javax.swing.JTextField jtxDescricao;
     private javax.swing.JTextField jtxId_Cargo;
     private javax.swing.JTextField jtxNome;
-    private javax.swing.JTextField jtxNome1;
     private javax.swing.JTextField jtxSalarioBase;
     // End of variables declaration//GEN-END:variables
 }

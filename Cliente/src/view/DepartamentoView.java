@@ -81,7 +81,15 @@ public class DepartamentoView extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nome", "Localização"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable);
 
         jbSalvar.setText("Salvar");
@@ -255,6 +263,12 @@ public class DepartamentoView extends javax.swing.JFrame {
 
             if (controller.inserir(departamento)) {
                 JOptionPane.showMessageDialog(this, "Departamento inserido com sucesso!");
+                jbPesquisar.setEnabled(true);
+                jbNovo.setEnabled(true);
+                jbSalvar.setEnabled(true);
+                jbEditar.setEnabled(true);
+                jbExcluir.setEnabled(true);
+                jbFechar.setEnabled(true);
                 limparCampos();
                 preencherTabela();
             } else {
@@ -419,7 +433,7 @@ public class DepartamentoView extends javax.swing.JFrame {
     
     private void inicializa() {
     try {
-        Registry registry = LocateRegistry.getRegistry("localhost", 1100);
+        Registry registry = LocateRegistry.getRegistry("10.247.226.75", 1100);
         controller = (DepartamentoInterface) registry.lookup("departamento");
         System.out.println("✅ Conectado ao servidor RMI!");
     } catch (Exception e) {
