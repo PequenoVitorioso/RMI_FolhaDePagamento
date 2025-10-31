@@ -6,11 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="88ec636a-c2f5-4cc8-9e07-a36ce9d3e946" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DepartamentoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DepartamentoInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/DepartamentoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/DepartamentoModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/CargoView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/CargoView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/DepartamentoView.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/DepartamentoView.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/DepartamentoView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/DepartamentoView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/FuncionarioView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/FuncionarioView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/PagamentoView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PagamentoView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/CargoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/CargoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/DepartamentoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/DepartamentoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/DepartamentoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/DepartamentoInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/FuncionarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/FuncionarioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/controller/PagamentoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/controller/PagamentoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/model/FuncionarioModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/model/FuncionarioModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Servidor/src/view/ServidorView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/view/ServidorView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,6 +98,8 @@
       <workItem from="1761779403224" duration="4338000" />
       <workItem from="1761824521861" duration="462000" />
       <workItem from="1761831763695" duration="1390000" />
+      <workItem from="1761849208621" duration="3698000" />
+      <workItem from="1761867032767" duration="1932000" />
     </task>
     <servers />
   </component>

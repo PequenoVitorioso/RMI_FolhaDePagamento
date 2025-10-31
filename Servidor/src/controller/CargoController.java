@@ -114,6 +114,7 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
         }catch(SQLException e){
             System.out.println("Erro ao excluir: "+ e.getMessage());
         }
+        //DESCONECTAR
         c.desconectar();
         return retorno;
     }
@@ -154,13 +155,13 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
         //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
-
+        //CRIAR SQL SELECT
         String sql = "select * from cargo where id_cargo = ?";
 
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             sentenca.setInt(1, cargo.getId_cargo());
-
+            //EXECUTAR SENTENCA
             ResultSet rs = sentenca.executeQuery();
 
             if (rs.next()) {
@@ -177,7 +178,6 @@ public class CargoController extends UnicastRemoteObject implements CargoInterfa
 
         //DESCONECTAR
         c.desconectar();
-
         return retorno;
     }
 }

@@ -299,7 +299,7 @@ public class FuncionarioView extends javax.swing.JFrame {
             //cria o objeto funcionário
             FuncionarioModel funcionario = new FuncionarioModel();
             funcionario.setNome(nome);
-            funcionario.setId_departamento(departamentoSelecionado.getId_Departamento());
+            funcionario.setId_departamento(departamentoSelecionado.getId_departamento());
             funcionario.setId_cargo(cargoSelecionado.getId_cargo());
 
             //envia o funcionário para o servidor via rmi
@@ -350,7 +350,7 @@ public class FuncionarioView extends javax.swing.JFrame {
             FuncionarioModel funcionario = new FuncionarioModel();
             funcionario.setId_funcionario(idFuncionario);
             funcionario.setNome(nome);
-            funcionario.setId_departamento(departamentoSelecionado.getId_Departamento());
+            funcionario.setId_departamento(departamentoSelecionado.getId_departamento());
             funcionario.setId_cargo(cargoSelecionado.getId_cargo());
 
             //atualizar via rmi
@@ -399,7 +399,7 @@ public class FuncionarioView extends javax.swing.JFrame {
                 //seleciona o departamento no combobox
                 for (int i = 0; i < jcbDepartamento.getItemCount(); i++) {
                     DepartamentoModel dep = jcbDepartamento.getItemAt(i);
-                    if (dep.getId_Departamento() == funcionario.getId_departamento()) {
+                    if (dep.getId_departamento() == funcionario.getId_departamento()) {
                         jcbDepartamento.setSelectedIndex(i);
                         break;
                     }
@@ -577,7 +577,7 @@ public class FuncionarioView extends javax.swing.JFrame {
             //procura departamento correspondente ao ID do funcionário
             for (int i = 0; i < jcbDepartamento.getItemCount(); i++) {
                 DepartamentoModel dep = jcbDepartamento.getItemAt(i);
-                if (dep.getId_Departamento() == f.getId_departamento()) {
+                if (dep.getId_departamento() == f.getId_departamento()) {
                     deptoTexto = dep.getNome();
                     break;
                 }

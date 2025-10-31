@@ -101,6 +101,7 @@ public class PagamentoController extends UnicastRemoteObject implements Pagament
         String sql = "select * from pagamento where id_funcionario = ?";
         try{
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            //EXECUTAR SENTENCA
             ResultSet result = sentenca.executeQuery();
             while(result.next()){
                 PagamentoModel p = new PagamentoModel();
@@ -119,11 +120,14 @@ public class PagamentoController extends UnicastRemoteObject implements Pagament
     @Override
     public ArrayList<PagamentoModel> listarTodosPagamentos() throws RemoteException {
         ArrayList<PagamentoModel> retorno = new ArrayList<>();
+        //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
+        //CRIAR SQL SELECT
         String sql = "select * from pagamento";
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
+            //EXECUTAR SENTENCA
             ResultSet result = sentenca.executeQuery();
             while(result.next()){
                 PagamentoModel p = new PagamentoModel();
@@ -142,17 +146,18 @@ public class PagamentoController extends UnicastRemoteObject implements Pagament
     @Override
     public boolean editarPagamento(PagamentoModel p) throws RemoteException {
         boolean retorno = false;
+        //CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
-
-        String sql = "UPDATE pagamento SET id_funcionario = ?, valor_liquido = ? WHERE id_pagamento = ?";
+        //CRIAR SQL UPDATE
+        String sql = "update pagamento set id_funcionario = ?, valor_liquido = ? where id_pagamento = ?";
 
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             sentenca.setInt(1, p.getId_cliente());       // ID do funcionário
             sentenca.setFloat(2, p.getValor_liquido());  // Valor atualizado
             sentenca.setInt(3, p.getId_pagamento());     // ID do pagamento
-
+            //EXECUTAR SENTENCA
             int linhasAfetadas = sentenca.executeUpdate();
             if (linhasAfetadas > 0) {
                 retorno = true;
@@ -160,7 +165,7 @@ public class PagamentoController extends UnicastRemoteObject implements Pagament
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar pagamento: " + e.getMessage());
         }
-
+        //DESCONECTAR
         c.desconectar();
         return retorno;
     }

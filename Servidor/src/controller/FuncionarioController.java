@@ -154,13 +154,13 @@ public class FuncionarioController extends UnicastRemoteObject implements Funcio
         // CONECTAR COM O BANCO
         Conexao c = new Conexao();
         c.conectar();
-
-        String sql = "SELECT * FROM funcionario WHERE id_funcionario = ?";
+        //CRIAR SENTENCA SQL
+        String sql = "select * from funcionario where id_funcionario = ?";
 
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             sentenca.setInt(1, funcionario.getId_funcionario());
-
+            //EXECUTAR SENTENÇA
             ResultSet rs = sentenca.executeQuery();
 
             if (rs.next()) {
@@ -177,7 +177,6 @@ public class FuncionarioController extends UnicastRemoteObject implements Funcio
 
         // DESCONECTAR
         c.desconectar();
-
         return retorno;
     }
 }

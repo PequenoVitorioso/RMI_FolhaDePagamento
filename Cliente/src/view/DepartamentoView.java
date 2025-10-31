@@ -304,7 +304,7 @@ public class DepartamentoView extends javax.swing.JFrame {
 
             //cria o modelo com os novos dados
             DepartamentoModel departamento = new DepartamentoModel();
-            departamento.setId_Departamento(idDepartamento);
+            departamento.setId_departamento(idDepartamento);
             departamento.setNome(nome);
             departamento.setLocalizacao(localizacao);
 
@@ -335,7 +335,7 @@ public class DepartamentoView extends javax.swing.JFrame {
         try {
             int idDepartamento = Integer.parseInt(jtxId_Departamento.getText());
             DepartamentoModel departamento = new DepartamentoModel();
-            departamento.setId_Departamento(idDepartamento);
+            departamento.setId_departamento(idDepartamento);
 
             //busca o departamento via RMI
             departamento = controller.selecionar(departamento);
@@ -411,7 +411,7 @@ public class DepartamentoView extends javax.swing.JFrame {
 
             //cria o modelo e envia para exclusão
             DepartamentoModel departamento = new DepartamentoModel();
-            departamento.setId_Departamento(idDepartamento);
+            departamento.setId_departamento(idDepartamento);
 
             if (controller.excluir(departamento)) {
                 JOptionPane.showMessageDialog(this, "Departamento excluído com sucesso!");
@@ -470,7 +470,7 @@ public class DepartamentoView extends javax.swing.JFrame {
             //adiciona cada departamento como linha na tabela
             for (DepartamentoModel d : lista) {
                 modeloTabela.addRow(new Object[] {
-                    d.getId_Departamento(),
+                    d.getId_departamento(),
                     d.getNome(),
                     d.getLocalizacao(),
                 });

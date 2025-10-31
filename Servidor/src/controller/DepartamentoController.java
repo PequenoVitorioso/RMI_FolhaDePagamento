@@ -71,7 +71,7 @@ public class DepartamentoController extends UnicastRemoteObject implements Depar
         Conexao c = new Conexao();
         c.conectar();
         //CRIAR SQL DELETE
-        String sql = "delete from departamento where id_departamneto = ?";
+        String sql = "delete from departamento where id_departamento = ?";
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);
             //PASSAR PARAMETROS
@@ -109,7 +109,7 @@ public class DepartamentoController extends UnicastRemoteObject implements Depar
                 retorno.setLocalizacao(rs.getString(3));
             }
         }catch(SQLException e){
-            System.out.println("Erro ao excluir: "+ e.getMessage());
+            System.out.println("Erro ao pesquisar: "+ e.getMessage());
         }
         c.desconectar();
         return retorno;
@@ -157,7 +157,7 @@ public class DepartamentoController extends UnicastRemoteObject implements Depar
             sentenca.setInt(1, departamento.getId_departamento());
 
             ResultSet rs = sentenca.executeQuery();
-
+            //EXECUTAR SENTENCA
             if (rs.next()) {
                 retorno = new DepartamentoModel();
                 retorno.setId_departamento(rs.getInt("id_departamento"));
@@ -171,7 +171,6 @@ public class DepartamentoController extends UnicastRemoteObject implements Depar
 
         //DESCONECTAR
         c.desconectar();
-
         return retorno;
     }
     
@@ -181,7 +180,7 @@ public class DepartamentoController extends UnicastRemoteObject implements Depar
         Conexao c = new Conexao();
         c.conectar();
 
-        String sql = "SELECT id_departamento, nome_departamento, localizacao FROM departamento";
+        String sql = "select id_departamento, nome_departamento, localizacao from departamento";
 
         try {
             PreparedStatement sentenca = c.conector.prepareStatement(sql);

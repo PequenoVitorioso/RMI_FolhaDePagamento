@@ -16,12 +16,12 @@ public class DepartamentoModel implements Serializable {
 
     public DepartamentoModel() {}
 
-    public int getId_Departamento() {
+    public int getId_departamento() {
         return id_departamento;
     }
 
-    public void setId_Departamento(int id_Departamento) {
-        this.id_departamento = id_Departamento;
+    public void setId_departamento(int id_departamento) {
+        this.id_departamento = id_departamento;
     }
 
     public String getNome() {
